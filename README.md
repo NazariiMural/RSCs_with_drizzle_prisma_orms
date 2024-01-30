@@ -1,11 +1,11 @@
-### Getting Started
+### Getting Started Next.js, Server Components, PostgresDB without ORM
 
 ```bash
-# Generate Prisma Client
-npx prisma generate
+# Run default migration (only if you db is empty)
+npm run migration -- 20240101000001_start_up_migration/migration.sql
 
-# Run migration 
-npx prisma migrate dev
+# Seed DB
+npm run seed
 
 # Install deps
 pnpm install
