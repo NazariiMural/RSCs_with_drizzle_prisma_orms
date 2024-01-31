@@ -1,4 +1,7 @@
-### Getting Started Next.js, Server Components, PostgresDB without ORM
+### Getting Started Next.js, Server Components, PostgresDB with Drizzle, Prisma or without ORM.
+
+<h4>Default is drizzle ORM since in my opinion it is the most efficient</h4>
+<h4>Each branch contains different ORM</h4>
 
 ```bash
 # If you using existing db try to run `introspect` command
