@@ -4,7 +4,7 @@
 # Generate Prisma Client
 npx prisma generate
 
-# Run migration 
+# Run migration (IMPORTANT!!!! - this fill remove User and users tables from your DB)
 npx prisma migrate dev
 
 # Install deps
