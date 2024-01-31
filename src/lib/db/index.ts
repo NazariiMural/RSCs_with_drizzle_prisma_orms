@@ -1,13 +1,4 @@
-import { Pool } from "pg";
+import { neon } from "@neondatabase/serverless";
 
 // Db connection variable
-let dbPool;
-
-if (!dbPool) {
-  dbPool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
-}
-
-export default dbPool as Pool;
+export const neonClient = neon(process.env.DIRECT_URL!);

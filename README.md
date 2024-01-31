@@ -1,8 +1,11 @@
 ### Getting Started Next.js, Server Components, PostgresDB without ORM
 
 ```bash
-# Run default migration (only if you db is empty)
-npm run migration -- 20240101000001_start_up_migration/migration.sql
+# If you using existing db try to run `introspect` command
+npx drizzle-kit introspect:pg
+
+# Generate migrations, when you have empty db or schema changes 
+npx drizzle-kit generate:pg
 
 # Seed DB
 npm run seed
