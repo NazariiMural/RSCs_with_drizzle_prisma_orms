@@ -37,7 +37,7 @@ export function SearchInput({ search }: { search?: string }) {
 
               setTimeoutId(undefined);
             });
-          }, 500);
+          }, 150);
 
           setTimeoutId(id);
         }}
