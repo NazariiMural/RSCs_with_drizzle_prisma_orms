@@ -22,7 +22,7 @@ export default function CreateUserForm() {
             id="user-name"
             className="w-full rounded-md border-gray-300 pl-5 text-sm focus:border-gray-400 focus:outline-none focus:ring-0"
             placeholder="User name"
-            defaultValue="test"
+            required
           />
           {state.errors?.name && !pending && (
             <span className="absolute left-5 top-9 inline-block w-full text-sm text-red-700">
@@ -37,7 +37,6 @@ export default function CreateUserForm() {
             id="user-email"
             className="w-full rounded-md border-gray-300 pl-5 text-sm focus:border-gray-400 focus:outline-none focus:ring-0"
             placeholder="User email"
-            defaultValue="email"
             required
           />
           {state.errors?.email && !pending && (
