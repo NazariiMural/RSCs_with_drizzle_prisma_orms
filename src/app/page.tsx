@@ -2,6 +2,7 @@ import { SearchInput } from "./components/search-input";
 import { Suspense } from "react";
 import Spinner from "./components/spinner";
 import UsersTable from "./components/user-table";
+import Link from "next/link";
 
 export default async function Page({
   searchParams,
@@ -18,12 +19,13 @@ export default async function Page({
           <SearchInput search={search} />
         </div>
         <div className="ml-16 mt-0 flex-none">
-          <button
+          <Link
             type="button"
             className="block rounded-md border border-indigo-600 bg-indigo-600 px-3 py-1.5 text-center text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            href="create-user"
           >
             Add user
-          </button>
+          </Link>
         </div>
       </div>
 

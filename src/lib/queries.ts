@@ -2,7 +2,7 @@ import * as usersSchema from "@/lib/db/schema/users";
 import { User } from "@/lib/db/schema/users";
 import { neonClient } from "@/lib/db";
 import { drizzle } from "drizzle-orm/neon-http";
-import { like } from "drizzle-orm";
+import { ilike } from "drizzle-orm";
 
 const db = drizzle(neonClient, { schema: usersSchema });
 
@@ -18,13 +18,13 @@ export const getUsers = async (search: string = ""): Promise<User[]> => {
       .from(usersSchema.users)
       .limit(9)
       .offset(0)
-      .where(like(usersSchema.users.name, `%${search}%`));
+      .where(ilike(usersSchema.users.name, `%${search}%`));
 
     // Query syntax
     const usersFromQuery: User[] = await db.query.users.findMany({
       limit: 1,
       offset: 9,
-      where: like(usersSchema.users.name, `%${search}%`),
+      where: ilike(usersSchema.users.name, `%${search}%`),
     });
     return [...usersFromSQLLikeQuery, ...usersFromQuery];
   } catch (error) {

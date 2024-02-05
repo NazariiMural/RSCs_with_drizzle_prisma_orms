@@ -6,7 +6,7 @@ export default async function UsersTable({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   // Add artificial delay to show loader
-  await new Promise<void>((res) => setTimeout(() => res(), 1500));
+  // await new Promise<void>((res) => setTimeout(() => res(), 1500));
 
   const search =
     typeof searchParams.search === "string" ? searchParams.search : undefined;
