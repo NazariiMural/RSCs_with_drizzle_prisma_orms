@@ -4,32 +4,52 @@ import { ZodError } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { CreateUserSchema } from "@/lib/zodValidationSchemas/user";
+import { CreateAction, CreateUserError } from "../shared/types";
+import { getUsersByEmail, insertUser } from "@/lib/db/queries/user";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
 export const checkIfEmailIsExist = async (value: string): Promise<boolean> => {
-  return new Promise((res) => setTimeout(() => res(true), 150));
+  try {
+    const res = await getUsersByEmail(value);
+    return !res;
+  } catch (error) {
+    throw error;
+  }
 };
 
-export const createUser = async (formData: FormData) => {
+export const createUser = async (
+  prevState: unknown,
+  formData: FormData
+): Promise<CreateAction<CreateUserError>> => {
   const rawFormData = {
-    username: formData.get("user-name"),
+    name: formData.get("user-name"),
     email: formData.get("user-email"),
   };
-
-  // const rawFormData = Object.fromEntries(formData.entries());
-  // Validate form fields using Zod
   try {
+    // Validate form fields using Zod
     const validatedFields = await CreateUserSchema.parseAsync(rawFormData);
-    console.log("validatedFields", validatedFields);
 
     // mutate data
-    // revalidate cache
+    await insertUser(validatedFields);
 
+    // revalidate cache
     revalidatePath("/");
-    redirect("/");
+    // redirect
+    return redirect("/");
   } catch (error) {
     // If form validation fails, return errors.
-    const e = error as ZodError<typeof CreateUserSchema.shape>;
-    const errors = e.flatten().fieldErrors;
-    return errors;
+    if (error instanceof ZodError) {
+      const e = error as ZodError<typeof CreateUserSchema.shape>;
+      const errors = e.flatten().fieldErrors;
+      return {
+        status: "error",
+        errors,
+      };
+    } else if (isRedirectError(error)) {
+      return redirect("/");
+    }
+
+    console.log(error);
+    return { status: "error", errors: { general: "Internal server error" } };
   }
 };

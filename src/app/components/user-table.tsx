@@ -1,4 +1,4 @@
-import { getUsers } from "@/lib/queries";
+import { getUsers } from "@/lib/db/queries/user";
 
 export default async function UsersTable({
   searchParams,
